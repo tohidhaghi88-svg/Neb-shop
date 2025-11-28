@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فروشگاه خدمات مجازی NEB</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            box-sizing: border-box;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Vazirmatn', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .main-wrapper {
+            width: 100%;
+            min-height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .home-section {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+        
+        .main-description {
+            font-size: 1.3rem;
+            color: #f0f0f0;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .main-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: #ffffff;
+            color: #667eea;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+        
+        .main-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+            background: #f8f9ff;
+        }
+        
+        .services-section {
+            display: none;
+            width: 100%;
+            min-height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+        }
+        
+        .services-section.active {
+            display: block;
+        }
+        
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            color: #ffffff;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+        
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(5px);
+        }
+        
+        .services-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .category-button {
+            padding: 20px 15px;
+            background: rgba(255,255,255,0.95);
+            color: #667eea;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .category-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+            background: #ffffff;
+        }
+        
+        .category-button.active {
+            background: #667eea;
+            color: #ffffff;
+        }
+        
+        .products-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .subcategory-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 25px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .subcategory-title:first-child {
+            margin-top: 0;
+        }
+        
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        
+        .product-item:last-child {
+            border-bottom: none;
+        }
+        
+        .product-item:hover {
+            background: #f8f9ff;
+            border-radius: 10px;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .product-price {
+            font-size: 1.05rem;
+            color: #667eea;
+            font-weight: 700;
+        }
+        
+        .buy-button {
+            padding: 12px 30px;
+            background: #667eea;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .buy-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .popup-overlay.active {
+            display: flex;
+        }
+        
+        .popup-content {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            animation: popupSlide 0.3s ease;
+        }
+        
+        .popup-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .popup-message {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .popup-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .telegram-button {
+            padding: 15px 35px;
+            background: #0088cc;
+            color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .telegram-button:hover {
+            background: #007ab8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
+        }
+        
+        .close-popup-button {
+            padding: 15px 35px;
+            background: #e0e0e0;
+            color: #333;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-popup-button:hover {
+            background: #d0d0d0;
+        }
+        
+        .footer-section {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+            border-radius: 15px;
+        }
+        
+        .footer-message {
+            font-size: 1.3rem;
+            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .footer-contact-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        
+        .footer-contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: #ffffff;
+        }
+        
+        .footer-copyright {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 400;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes popupSlide {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .main-description {
+                font-size: 1.1rem;
+            }
+            
+            .services-title {
+                font-size: 2rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+            
+            .product-item {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .popup-content {
+                padding: 30px 20px;
+            }
+            
+            .footer-message {
+                font-size: 1.1rem;
+            }
+            
+            .footer-copyright {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="main-wrapper"><!-- صفحه اصلی -->
+   <div class="home-section" id="homeSection">
+    <h1 class="main-title" id="mainTitle">فروشگاه خدمات مجازی NEB</h1>
+    <p class="main-description" id="mainDescription">بهترین و با کیفیت‌ترین خدمات مجازی را با قیمت مناسب از ما تهیه کنید. خدمات متنوع و پشتیبانی ۲۴ ساعته</p><button class="main-button" id="mainButton" onclick="showServices()">مشاهده خدمات و کالاها</button>
+    <div class="footer-section">
+     <p class="footer-message" id="footerMessage">پشتیبانی NEB همراه شماست</p><a href="https://t.me/Companys_support" class="footer-contact-button" id="footerContactButton" target="_blank" rel="noopener noreferrer">تماس با ما</a>
+     <p class="footer-copyright" id="footerCopyright">© 2025 NEB — تمامی حقوق محفوظ است</p>
+    </div>
+   </div>
+  </div><!-- صفحه خدمات -->
+  <div class="services-section" id="servicesSection">
+   <div class="services-container"><button class="back-button" onclick="showHome()"> ← بازگشت به صفحه اصلی </button>
+    <h2 class="services-title" id="servicesTitle">دسته‌بندی خدمات</h2>
+    <div class="categories-grid"><button class="category-button active" onclick="filterCategory('telegram-premium')">اشتراک پریمیوم</button> <button class="category-button" onclick="filterCategory('stars')">استارز تلگرام</button> <button class="category-button" onclick="filterCategory('boost')">بوست تلگرام</button> <button class="category-button" onclick="filterCategory('virtual-number')">شماره مجازی</button> <button class="category-button" onclick="filterCategory('gift')">گیفت تلگرام</button>
+    </div>
+    <div class="products-container" id="productsContainer"><!-- محصولات اینجا نمایش داده می‌شوند -->
+    </div>
+    <div class="footer-section">
+     <p class="footer-message">پشتیبانی NEB همراه شماست</p><a href="https://t.me/Companys_support" class="footer-contact-button" id="footerContactButton2" target="_blank" rel="noopener noreferrer">تماس با ما</a>
+     <p class="footer-copyright">© 2025 NEB — تمامی حقوق محفوظ است</p>
+    </div>
+   </div>
+  </div><!-- پاپ‌آپ خرید -->
+  <div class="popup-overlay" id="popupOverlay">
+   <div class="popup-content">
+    <div class="popup-icon">
+     ⚠️
+    </div>
+    <p class="popup-message" id="popupMessage">درحال حاضر امکان خرید از سایت موجود نمیباشد و باید به پیوی ادمین فروشنده در تلگرام مراجعه شود</p>
+    <div class="popup-buttons"><a href="https://t.me/Companys_support" class="telegram-button" id="telegramButton" target="_blank" rel="noopener noreferrer">انتقال به پیوی ادمین</a> <button class="close-popup-button" onclick="closePopup()">بستن</button>
+    </div>
+   </div>
+  </div>
+  <script>
+        // پیکربندی پیش‌فرض
+        const defaultConfig = {
+            main_title: "فروشگاه خدمات مجازی NEB",
+            main_description: "بهترین و با کیفیت‌ترین خدمات مجازی را با قیمت مناسب از ما تهیه کنید. خدمات متنوع و پشتیبانی ۲۴ ساعته",
+            main_button: "مشاهده خدمات و کالاها",
+            services_title: "دسته‌بندی خدمات",
+            popup_message: "درحال حاضر امکان خرید از سایت موجود نمیباشد و باید به پیوی ادمین فروشنده در تلگرام مراجعه شود",
+            popup_button: "انتقال به پیوی ادمین",
+            footer_message: "پشتیبانی NEB همراه شماست",
+            footer_button: "تماس با ما",
+            telegram_link: "https://t.me/Companys_support",
+            footer_copyright: "© 2025 NEB — تمامی حقوق محفوظ است",
+            background_color: "#667eea",
+            button_color: "#ffffff",
+            text_color: "#ffffff",
+            accent_color: "#0088cc"
+        };
+
+        // داده‌های محصولات واقعی
+        const productsData = {
+            'telegram-premium': {
+                title: 'اشتراک پریمیوم تلگرام',
+                items: [
+                    { name: '🔵 اشتراک ۳ ماهه', price: '۱,۹۸۰,۰۰۰ تومان' },
+                    { name: '🔵 اشتراک ۶ ماهه', price: '۲,۵۱۰,۰۰۰ تومان' },
+                    { name: '🔵 اشتراک ۱۲ ماهه', price: '۴,۰۵۰,۰۰۰ تومان' }
+                ]
+            },
+            'stars': {
+                title: 'استارز تلگرام',
+                items: [
+                    { name: '🌟 ۵۰ عدد استارز', price: '۱۳۰,۰۰۰ تومان' },
+                    { name: '🌟 ۷۵ عدد استارز', price: '۱۹۵,۰۰۰ تومان' },
+                    { name: '🌟 ۱۰۰ عدد استارز', price: '۲۶۰,۰۰۰ تومان' },
+                    { name: '🌟 ۲۵۰ عدد استارز', price: '۶۰۰,۰۰۰ تومان' },
+                    { name: '🌟 ۵۰۰ عدد استارز', price: '۱,۲۱۵,۰۰۰ تومان' },
+                    { name: '🌟 ۷۵۰ عدد استارز', price: '۱,۸۱۵,۰۰۰ تومان' },
+                    { name: '🌟 ۱,۰۰۰ عدد استارز', price: '۲,۰۱۵,۰۰۰ تومان' },
+                    { name: '🌟 ۲,۵۰۰ عدد استارز', price: '۵,۵۱۵,۰۰۰ تومان' }
+                ]
+            },
+            'boost': {
+                title: 'بوست تلگرام',
+                items: [
+                    { name: '💠 بوست ۷ روزه', price: '۲۵,۰۰۰ تومان' },
+                    { name: '💠 بوست ۱۵ روزه', price: '۴۰,۰۰۰ تومان' },
+                    { name: '💠 بوست ۳۰ روزه', price: '۶۰,۰۰۰ تومان' }
+                ]
+            },
+            'virtual-number': {
+                subcategories: [
+                    {
+                        title: '🔴 شماره مجازی کیفیت پایین',
+                        items: [
+                            { name: '🇺🇸 آمریکا', price: '۵۵,۰۰۰ تومان' },
+                            { name: '🇧🇩 بنگلادش', price: '۶۰,۰۰۰ تومان' }
+                        ]
+                    },
+                    {
+                        title: '🟡 شماره مجازی کیفیت متوسط',
+                        items: [
+                            { name: '🇭🇰 هنگ کنگ', price: '۲۱۵,۰۰۰ تومان' },
+                            { name: '🇵🇰 پاکستان', price: '۹۰,۰۰۰ تومان' },
+                            { name: '🇬🇭 غنا', price: '۱۱۰,۰۰۰ تومان' },
+                            { name: '🇵🇱 لهستان', price: '۲۲۰,۰۰۰ تومان' },
+                            { name: '🇦🇺 استرالیا', price: '۳۲۰,۰۰۰ تومان' },
+                            { name: '🇮🇳 هند', price: '۸۰,۰۰۰ تومان' },
+                            { name: '🇧🇷 برزیل', price: '۱۵۰,۰۰۰ تومان' },
+                            { name: '🇲🇾 مالزی', price: '۱۴۵,۰۰۰ تومان' },
+                            { name: '🇹🇳 تونس', price: '۱۴۵,۰۰۰ تومان' },
+                            { name: '🇦🇷 آرژانتین', price: '۱۶۵,۰۰۰ تومان' },
+                            { name: '🇹🇭 تایلند', price: '۱۳۵,۰۰۰ تومان' },
+                            { name: '🇵🇭 فیلیپین', price: '۱۴۰,۰۰۰ تومان' }
+                        ]
+                    },
+                    {
+                        title: '🟢 شماره مجازی کیفیت بالا',
+                        items: [
+                            { name: '🇮🇶 عراق', price: '۱۹۰,۰۰۰ تومان' },
+                            { name: '🇹🇯 تاجیکستان', price: '۲۴۵,۰۰۰ تومان' },
+                            { name: '🇬🇪 گرجستان', price: '۲۱۵,۰۰۰ تومان' },
+                            { name: '🇨🇳 چین', price: '۱۶۵,۰۰۰ تومان' },
+                            { name: '🇹🇷 ترکیه', price: '۲۴۵,۰۰۰ تومان' },
+                            { name: '🇲🇰 مقدونیه شمالی', price: '۲۳۵,۰۰۰ تومان' },
+                            { name: '🇱🇧 لبنان', price: '۲۰۰,۰۰۰ تومان' },
+                            { name: '🇫🇯 فیجی', price: '۲۰۵,۰۰۰ تومان' },
+                            { name: '🇸🇦 عربستان', price: '۲۸۰,۰۰۰ تومان' },
+                            { name: '🇰🇬 قرقیزستان', price: '۱۹۰,۰۰۰ تومان' },
+                            { name: '🇾🇪 یمن', price: '۱۲۵,۰۰۰ تومان' },
+                            { name: '🇦🇪 امارات', price: '۳۸۵,۰۰۰ تومان' },
+                            { name: '🇸🇾 سوریه', price: '۱۵۵,۰۰۰ تومان' },
+                            { name: '🇳🇱 هلند', price: '۳۶۵,۰۰۰ تومان' },
+                            { name: '🇩🇪 آلمان', price: '۴۲۵,۰۰۰ تومان' },
+                            { name: '🇰🇷 کره جنوبی', price: '۵۸۰,۰۰۰ تومان' },
+                            { name: '🇯🇵 ژاپن', price: '۳۱۵,۰۰۰ تومان' },
+                            { name: '🇪🇸 اسپانیا', price: '۴۰۵,۰۰۰ تومان' },
+                            { name: '🇬🇧 انگلستان', price: '۱۶۵,۰۰۰ تومان' },
+                            { name: '🇸🇦 عربستان (ویژه)', price: '۳۵۰,۰۰۰ تومان' }
+                        ]
+                    }
+                ]
+            },
+            'gift': {
+                title: 'گیفت تلگرام',
+                items: [
+                    { name: '🧸 تدی', price: '۴۰,۰۰۰ تومان' },
+                    { name: '💝 قلب', price: '۴۰,۰۰۰ تومان' },
+                    { name: '🎁 باکس هدیه', price: '۶۵,۰۰۰ تومان' },
+                    { name: '🌹 گل رز', price: '۶۵,۰۰۰ تومان' },
+                    { name: '🎂 کیک تولد', price: '۱۳۰,۰۰۰ تومان' },
+                    { name: '💐 دسته گل', price: '۱۳۰,۰۰۰ تومان' },
+                    { name: '🍾 نوشیدنی', price: '۱۳۰,۰۰۰ تومان' },
+                    { name: '🚀 موشک', price: '۱۳۰,۰۰۰ تومان' },
+                    { name: '🏆 جام', price: '۲۵۵,۰۰۰ تومان' },
+                    { name: '💍 حلقه', price: '۲۵۵,۰۰۰ تومان' },
+                    { name: '💎 الماس', price: '۲۵۵,۰۰۰ تومان' }
+                ]
+            }
+        };
+
+        let currentCategory = 'telegram-premium';
+
+        // نمایش محصولات
+        function displayProducts(category) {
+            const container = document.getElementById('productsContainer');
+            const data = productsData[category];
+            
+            if (!data) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">محصولی در این دسته‌بندی موجود نیست</p>';
+                return;
+            }
+            
+            let html = '';
+            
+            // اگر دسته‌بندی زیرمجموعه دارد (مثل شماره مجازی)
+            if (data.subcategories) {
+                data.subcategories.forEach(sub => {
+                    html += `<h3 class="subcategory-title">${sub.title}</h3>`;
+                    sub.items.forEach(product => {
+                        html += `
+                            <div class="product-item">
+                                <div class="product-info">
+                                    <div class="product-name">${product.name}</div>
+                                    <div class="product-price">${product.price}</div>
+                                </div>
+                                <button class="buy-button" onclick="showPopup()">خرید</button>
+                            </div>
+                        `;
+                    });
+                });
+            } else {
+                // دسته‌های ساده (بدون زیرمجموعه)
+                if (data.title) {
+                    html += `<h3 class="subcategory-title">${data.title}</h3>`;
+                }
+                data.items.forEach(product => {
+                    html += `
+                        <div class="product-item">
+                            <div class="product-info">
+                                <div class="product-name">${product.name}</div>
+                                <div class="product-price">${product.price}</div>
+                            </div>
+                            <button class="buy-button" onclick="showPopup()">خرید</button>
+                        </div>
+                    `;
+                });
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // فیلتر دسته‌بندی
+        function filterCategory(category) {
+            currentCategory = category;
+            
+            // تغییر وضعیت دکمه‌های دسته‌بندی
+            document.querySelectorAll('.category-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            displayProducts(category);
+        }
+
+        // نمایش صفحه خدمات
+        function showServices() {
+            document.querySelector('.main-wrapper').style.display = 'none';
+            document.getElementById('servicesSection').classList.add('active');
+            displayProducts(currentCategory);
+        }
+
+        // نمایش صفحه اصلی
+        function showHome() {
+            document.querySelector('.main-wrapper').style.display = 'flex';
+            document.getElementById('servicesSection').classList.remove('active');
+        }
+
+        // نمایش پاپ‌آپ
+        function showPopup() {
+            document.getElementById('popupOverlay').classList.add('active');
+        }
+
+        // بستن پاپ‌آپ
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('active');
+        }
+
+        // بستن پاپ‌آپ با کلیک روی overlay
+        document.getElementById('popupOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        // Element SDK
+        async function onConfigChange(config) {
+            document.getElementById('mainTitle').textContent = config.main_title || defaultConfig.main_title;
+            document.getElementById('mainDescription').textContent = config.main_description || defaultConfig.main_description;
+            document.getElementById('mainButton').textContent = config.main_button || defaultConfig.main_button;
+            document.getElementById('servicesTitle').textContent = config.services_title || defaultConfig.services_title;
+            document.getElementById('popupMessage').textContent = config.popup_message || defaultConfig.popup_message;
+            document.getElementById('telegramButton').textContent = config.popup_button || defaultConfig.popup_button;
+            document.getElementById('telegramButton').href = config.telegram_link || defaultConfig.telegram_link;
+            document.getElementById('footerMessage').textContent = config.footer_message || defaultConfig.footer_message;
+            document.getElementById('footerContactButton').textContent = config.footer_button || defaultConfig.footer_button;
+            document.getElementById('footerContactButton').href = config.telegram_link || defaultConfig.telegram_link;
+            document.getElementById('footerContactButton2').textContent = config.footer_button || defaultConfig.footer_button;
+            document.getElementById('footerContactButton2').href = config.telegram_link || defaultConfig.telegram_link;
+            document.getElementById('footerCopyright').textContent = config.footer_copyright || defaultConfig.footer_copyright;
+            
+            const bgColor = config.background_color || defaultConfig.background_color;
+            document.querySelector('.main-wrapper').style.background = `linear-gradient(135deg, ${bgColor} 0%, #764ba2 100%)`;
+            document.querySelector('.services-section').style.background = `linear-gradient(135deg, ${bgColor} 0%, #764ba2 100%)`;
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.background_color || defaultConfig.background_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ background_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.button_color || defaultConfig.button_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ button_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.text_color || defaultConfig.text_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ text_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.accent_color || defaultConfig.accent_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ accent_color: value });
+                            }
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["main_title", config.main_title || defaultConfig.main_title],
+                ["main_description", config.main_description || defaultConfig.main_description],
+                ["main_button", config.main_button || defaultConfig.main_button],
+                ["services_title", config.services_title || defaultConfig.services_title],
+                ["popup_message", config.popup_message || defaultConfig.popup_message],
+                ["popup_button", config.popup_button || defaultConfig.popup_button],
+                ["footer_message", config.footer_message || defaultConfig.footer_message],
+                ["footer_button", config.footer_button || defaultConfig.footer_button],
+                ["telegram_link", config.telegram_link || defaultConfig.telegram_link],
+                ["footer_copyright", config.footer_copyright || defaultConfig.footer_copyright]
+            ]);
+        }
+
+        // اجرای SDK
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig: defaultConfig,
+                onConfigChange: onConfigChange,
+                mapToCapabilities: mapToCapabilities,
+                mapToEditPanelValues: mapToEditPanelValues
+            });
+        }
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a55150b35eaf44a',t:'MTc2NDI4Mjc1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
